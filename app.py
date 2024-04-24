@@ -52,10 +52,10 @@ skill = st.sidebar.text_input("Enter Your Skills", placeholder="Python,Django,AW
 company = st.sidebar.text_input("Enter Company Name", placeholder="Google")
 
 
-def toxicity_classifier(job_title,experience,skills,company_name):
+def cover_letter(job_title,experience,skills,company_name):
 
     toxicity_agent = Agent(
-            role="toxicity expert",
+            role="Cover Letter expert",
             prompt_persona=f"You are an Expert Cover Letter writer.Your Task Is to create cover letter for given details."
         )
 
@@ -71,15 +71,15 @@ def toxicity_classifier(job_title,experience,skills,company_name):
         """
 
     toxicity_task = Task(
-        name="Toxicity Classifier",
+        name="Generate Cover Letter",
         model=open_ai_text_completion_model,
         agent=toxicity_agent,
         instructions=prompt,
     )
 
     output = LinearSyncPipeline(
-        name="Toxicity Pipline",
-        completion_message="pipeline completed",
+        name="Cover Letter Pipline",
+        completion_message="Cover Letter Generated!!",
         tasks=[
               toxicity_task
         ],
@@ -91,6 +91,6 @@ def toxicity_classifier(job_title,experience,skills,company_name):
 
 
 if st.sidebar.button("Generate Cover Letter",type="primary"):
-    solution = toxicity_classifier(title, experience, skill, company)
+    solution = cover_letter(title, experience, skill, company)
     st.markdown(solution)
 
